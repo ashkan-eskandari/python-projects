@@ -4,7 +4,9 @@ from pypdf import PdfReader
 import requests
 
 text_to_speech_URL = "http://api.ispeech.org/api/rest?action=convert"
-SPEECH_API_KEY=os.environ.get("SPEECH_API_KEY")
+SPEECH_API_KEY = os.environ.get("SPEECH_API_KEY")
+
+
 def get_audio(pdf):
     reader = PdfReader(pdf)
     number_of_pages = len(reader.pages)

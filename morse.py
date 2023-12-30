@@ -13,6 +13,7 @@ class Morse:
     def __init__(self):
         self.morse_output = []
         self.output = ""
+
     def to_morse(self, str_input):
         str_input = str_input.upper().split(" ")
         for word in str_input:
@@ -21,6 +22,7 @@ class Morse:
                     self.morse_output.append(morse_code[all_chr.index(word[i])])
         self.output = " ".join(self.morse_output)
         return self.output
+
     def reset(self):
         self.output = ""
         self.morse_output = []
