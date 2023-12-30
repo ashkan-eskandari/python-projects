@@ -1,18 +1,14 @@
-// Register a listener for submit events.
 const form = document.querySelector('form[name="color_extract"]');
 const colorsSection = document.getElementById("colors_section")
 const img = document.getElementById("file_url")
 const table = document.getElementById("table")
 const img_spinner = document.getElementById("img_spinner")
 form.addEventListener('submit', evt => {
-    // Suppress the default behavior of the form.
     evt.preventDefault();
-
     colorsSection.classList.add("d-none")
     table.innerHTML = ""
     img.src = ""
     img_spinner.classList.remove("d-none")
-    // Submit the form data.
     fetch("/upload", {
         method: 'POST',
         body: new FormData(evt.target)
@@ -31,8 +27,12 @@ form.addEventListener('submit', evt => {
                                </button>`;
             }
 
-            // Handle response here.
-        });
-    // Reset the form.
-    evt.target.reset();
-});
+        }).catch(err => {
+        console.error('Error:', err);
+    })
+        evt.target.reset();
+
+})
+
+
+
