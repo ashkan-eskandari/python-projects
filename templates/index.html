@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/css/loader.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/weather.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="{{url_for('static',filename='js/morse.js')}}" defer></script>
+    <script src="{{url_for('static',filename='js/img.js')}}" defer></script>
+    <script src="{{url_for('static',filename='js/tkinter.js')}}" defer></script>
+    <script src="{{url_for('static',filename='js/breakout.js')}}" defer></script>
+    <script src="{{url_for('static',filename='js/weather.js')}}" defer></script>
+
+    <title>Title</title>
+
+</head>
+<body style="background:#EEF0EE;font-family: 'Roboto Mono', monospace;">
+
+
+<!--Navbar Section-->
+<header class="d-flex justify-content-center py-3 sticky-top" style="background-color: transparent">
+    <nav class="navbar " style="border-radius: 10px;border: 1px solid #777;background-color:#FCC040;opacity: 90%">
+        <div class="container-fluid ">
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a href="#" class="nav-link " aria-current="page">Home</a></li>
+                <li class="nav-item"><a href="#morse" class="nav-link text-black">Morse</a></li>
+                <li class="nav-item"><a href="#image" class="nav-link text-black">Image Process</a></li>
+                <li class="nav-item"><a href="#dangerous" class="nav-link text-black">Dangerous Writing</a></li>
+                <li class="nav-item"><a href="#breakout" class="nav-link text-black">Breakout Game</a></li>
+                <li class="nav-item"><a href="#weather_section" class="nav-link text-black">Weather</a></li>
+                <li class="nav-item"><a href="#text_to_speech_section" class="nav-link text-black">Text To Speech</a>
+                </li>
+                <li class="nav-item"><a href="#data_science_section" class="nav-link text-black">Data Science</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<!---->
+
+<!--Home Section-->
+<div class="px-4 py-5 my-2 text-center" style="height: 100vh">
+    <h1 class="display-5 fw-bold text-body-emphasis"  style="color:#080708;">Welcome to My Coding Exploration</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4 " style="text-align: justify;">Beginning with the wizardry of <span style="color: #203D84">JavaScript</span> for crafting dynamic web experiences, I soon
+            discovered a passion for delving into data, leading me to embrace the versatility of <span style="color: #203D84">Python</span>. Within these
+            projects, you'll find a fusion of <span style="color: #203D84">Python, NumPy, Pandas, Flask, scikit-learn, JavaScript, Bootstrap, and
+            more</span>.
+
+            Every day marks a new chapter in my coding journey—a quest for refinement. Join me in exploring these
+            projects, a canvas where creativity meets code. Welcome to the coding adventure!</p>
+        <p class="lead mb-2 " style="text-align: start">Gmail: <a >ashkan.eskandari.dev@gmail.com</a></p>
+        <p class="lead mb-2 " style="text-align: start">Linkedin: <a href="https://www.linkedin.com/in/ashkan-eskandari-dev/">ashkan-eskandari-dev</a></p>
+        <p class="lead mb-2 " style="text-align: start">Github: <a href="https://github.com/ashkan-eskandari">ashkan-eskandari</a></p>
+    </div>
+</div>
+<!---->
+<hr>
+<!--Morse Code Section-->
+<section style="height: 100vh">
+    <div class="container col-xl-10 col-xxl-8 px-4 py-5" id="morse">
+        <div class="row align-items-center g-lg-5 py-5">
+            <div class="col-lg-7 text-center text-lg-start">
+                <h1 class="display-4 fw-bold lh-1  mb-3" style="color:#080708;">Morse Code</h1>
+                <p class="col-lg-10 fs-4 text-break">A seamless blend of Python, JavaScript, Flask. Python manages
+                    backend logic, JavaScript enables real-time translation, and Flask ensures smooth data flow.
+                </p>
+            </div>
+            <div class="col-md-10 mx-auto col-lg-5">
+
+
+                <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary" method="post"
+                      action="{{ url_for('get_morse') }}"
+                      id="morse_form">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" name="text">
+                        <label for="floatingInput">Your Word</label>
+                    </div>
+                    <button class="w-100 btn btn-lg  mb-3" style="background-color:#203D84;color: #FFF8F0" type="submit"
+                            id="submitMorse" onclick="get_morse()">
+                        Morse Up
+                    </button>
+                    <div class="form-floating mb-3">
+                        <p type="text" class="form-control" id="floatingMorse" style="height: fit-content">
+                            {{morse_output}}</p>
+                        <label for="floatingMorse">Morse</label>
+                    </div>
+                    <button class="w-100  btn-sm btn btn-outline-danger mb-3" type="reset" id="resetMorse">Reset
+                    </button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+<!---->
+<hr>
+<!--Image Process Section-->
+<section style="height: 100vh">
+    <div class="container col-xxl-8 px-4 py-5" id="image">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+            <div class="col-10 col-sm-8 col-lg-6 ">
+                <div class="loader  d-none" id="img_spinner"></div>
+
+                <div class="d-none" id="colors_section">
+                    <img src="" style="max-width:450px ;height: auto" class="mb-2" alt="uploaded photo" id="file_url">
+
+                    <div class="container text-center ">
+                        <div class="row">
+                            <div class="col justify-center">
+                                <button type="button" class="btn btn-outline-warning mb-2" data-bs-toggle="collapse"
+                                        data-bs-target="#table" aria-expanded="false" aria-controls="color">Get
+                                    colors
+                                </button>
+                                <div class="collapse" id="table">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+                <h1 class="display-5 fw-bold  lh-1 mb-3 " style="color:#080708;">Process Image And Extract Colors</h1>
+                <p class="lead text-justify" style="text-align: justify;">Experience the Image Color Analyzer. A project
+                    where users upload photos for vibrant
+                    color extraction. Powered by Python, JavaScript, Flask API, NumPy, scikit-learn, Matplotlib, and
+                    PIL, this application demonstrates expertise in data-driven web development. Dive into the world of
+                    colors with the Image Color Analyzer.</p>
+                <div class="d-flex  py-3 justify-content-md-start">
+                    <button class="btn btn-outline-dark btn-lg px-4 me-md-2" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        Upload Your Image
+                    </button>
+
+                </div>
+                <div id="collapseExample" class="collapse justify-content-left">
+                    <form method="post" enctype="multipart/form-data" action="{{url_for('upload')}}"
+                          name="color_extract">
+                        <div class="row">
+                            <div class="col-auto">
+                                <input class="form-control" type="file" name="photo">
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn small btn-outline-success" name="submit">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!---->
+<hr>
+<!--writing app-->
+<section style="height: 100vh;padding-top: 100px" id="dangerous">
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold " style="color:#080708;">Dangerous Writing App</h1>
+        <div class="col-lg-8 mx-auto">
+            <p class="lead mb-4" style="text-align: justify;">Dive into the Dangerous Writing App, a project inspired by
+                Squibler.io. Crafted with
+                Python, JavaScript, and Tkinter, this application introduces a unique challenge: the timer starts
+                ticking only when the user stops writing. After 10 seconds, the screen is swiftly cleared, encouraging
+                users to maintain an uninterrupted flow of thought. Experience focused and dynamic writing with the
+                Dangerous Writing App.</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <button type="button" class="btn btn-lg px-4 gap-3" style="background-color: #203D84;color:#FFF8F0"
+                        onclick="openTkinterWindow()">Start Writing
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+<!---->
+<hr>
+<!--Breakout Game-->
+<section style="height: 100vh;padding-top: 100px" id="breakout">
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold " style="color:#080708;">Breakout Game</h1>
+        <div class="col-lg-8 mx-auto">
+            <p class="lead mb-4" style="text-align: justify;">Step into the world of classic gaming with the Breakout
+                Arcade Game—a project crafted
+                with Python, JavaScript, and the Turtle graphics library. This nostalgic arcade game challenges players
+                to break through barriers using a bouncing ball and paddle. Experience the fusion of Python and
+                JavaScript, bringing to life a timeless gaming experience with the Breakout Arcade Game.</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <button type="button" class="btn btn-lg px-4 gap-3" style="background-color: #203D84;color:#FFF8F0"
+                        onclick="openBreakoutWindow()">Start Breaking Out
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+<!---->
+<hr>
+<!--Weather Section-->
+<section style="height: 100vh;padding-top: 40px" id="weather_section">
+    <div class="px-4 py-5 my-1 text-center">
+        <h1 class="display-5 fw-bold  " style="color:#080708;">Weather</h1>
+        <div class="col-lg-8 mx-auto ">
+            <p class="lead mb-4 text-justify" style="text-align: justify;">The IP-Based Weather App combines Python, JavaScript, and
+                Flask API to provide
+                real-time weather conditions based on the user's IP location. Leveraging Python for backend logic, Flask
+                API for data retrieval, and JavaScript for dynamic user interaction, this project delivers an intuitive
+                and location-aware weather experience. Stay informed about current weather conditions effortlessly with
+                the IP-Based Weather App.</p>
+            <div class="d-grid gap-2  justify-content-sm-center">
+                <button type="button" class="btn btn-lg px-4 gap-3" style="background-color: #203D84;color:#FFF8F0"
+                        id="get_weather_button">Should I Bring My Umbrella?
+                </button>
+                <div class="weather_loader d-none " id="weather_spinner" style="margin: 0 auto"></div>
+
+            </div>
+
+        </div>
+        <div id="weather_wrapper" class="d-none weather_wrapper">
+            <div class="weatherCard">
+                <div class="currentTemp">
+                    <span class="temp" id="temperature"></span>
+                    <span class="location" id="weather_location"></span>
+                </div>
+                <div class="currentWeather">
+                    <img class="conditions" id="weather_icon" src=""/>
+                    <div class="info">
+                        <span class="rain" id="weatherCondition"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!---->
+<hr>
+<!--Text to Speech Section-->
+<section style="height: 100vh">
+    <div class="container text-center  px-4 py-5" id="text_to_speech_section">
+        <div class="g-5 py-5">
+            <div class="col-lg-8 mx-auto ">
+                <h1 class="display-5 fw-bold  lh-1 mb-3 " style="color:#080708;">Text To Speech</h1>
+                <p class="lead text-justify" style="text-align: justify;">The PDF-to-Speech Converter empowers users to
+                    transform uploaded PDF files into spoken narratives. Using Python, JavaScript, and PyPDF, the
+                    platform seamlessly extracts text content from PDFs and employs the UnrealSpeech API for
+                    high-quality text-to-speech conversion. Experience accessibility as PDFs come to life through
+                    audible narration with this intuitive and dynamic converter.</p>
+                <div class="d-flex  py-3 justify-content-md-center">
+                    <button class="btn btn-outline-dark btn-lg px-4 me-md-2" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#text_to_speech_collapse" aria-expanded="false"
+                            aria-controls="collapseExample">
+                        Upload Your Pdf
+                    </button>
+
+                </div>
+                <div id="text_to_speech_collapse" class="collapse ">
+                    <form method="post" enctype="multipart/form-data" action="{{url_for('upload_pdf')}}"
+                          name="get_pdf">
+                        <div class="row" style="justify-content: center">
+                            <div class="col-auto">
+                                <input class="form-control" type="file" name="pdf">
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn small btn-outline-success" name="submit">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="speech_loader d-none" id="speech_loader" style=" margin: auto;margin-top: 10px;"></div>
+
+                    <audio class="d-none" id="audio_track" controls="controls"
+                           style="margin-top: 20px;border: 2px solid #203D84;border-radius: 50px">
+                        <source id="oggSource" src="" type="audio/ogg"/>
+                        <source id="mp3Source" type="audio/mp3" src=""/>
+                        Your browser does not support the audio format.
+                    </audio>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!---->
+<hr>
+<!--Data Science Section-->
+<section style="height: 100vh;padding-top: 120px">
+    <div class="px-4 py-5 my-5 text-center"  id="data_science_section">
+        <h1 class="display-5 fw-bold text-body-emphasis">Data Science</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">Utilizing real-world data from nextspaceflight.com, this project, inspired by Angela
+                Yu's course, showcases insights drawn from a CSV file. The portfolio reveals a glimpse of my data
+                journey, from thorough
+                examination to insightful exploration.</p>
+            <div class="grid">
+                <div class="d-flex flex-column">
+                    <button class="g-col-auto btn btn-outline-dark btn-lg px-4 me-md-2" style="margin-bottom: 16px"
+                            type="button" data-bs-toggle="collapse"
+                            data-bs-target="#launch_per_organisation_collapse" aria-expanded="false"
+                            aria-controls="launch_per_organisation_collapse">
+                        Number of Space Mission Launches By Organisation
+                    </button>
+                    <div class="collapse" id="launch_per_organisation_collapse" style="margin-bottom: 24px">
+                        {% include 'launch_per_organisation.html' %}
+
+                    </div>
+                </div>
+                <div class="d-flex flex-column">
+
+                    <button class="g-col-auto btn btn-outline-dark btn-lg px-4 me-md-2" style="margin-bottom: 16px"
+                            type="button" data-bs-toggle="collapse"
+                            data-bs-target="#launch_per_country_collapse" aria-expanded="false"
+                            aria-controls="launch_per_country_collapse">
+                        Choropleth Map to Show the Number of Launches by Country
+                    </button>
+                    <div class="collapse" id="launch_per_country_collapse" style="margin-bottom: 24px">
+                        {% include 'launch_per_country.html' %}
+
+                    </div>
+
+                </div>
+                <div class="d-flex flex-column">
+
+                    <button class="g-col-auto btn btn-outline-dark btn-lg px-4 me-md-2" style="margin-bottom: 16px"
+                            type="button" data-bs-toggle="collapse"
+                            data-bs-target="#mission_status_collapse" aria-expanded="false"
+                            aria-controls="mission_status_collapse">
+                        Chart of the countries, organisations, and mission status
+                    </button>
+                    <div class="collapse" id="mission_status_collapse" style="margin-bottom: 24px">
+                        {% include 'mission_status.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!---->
+<!--Footer-->
+<div class="container" >
+  <footer class="py-3 my-4">
+    <p class="text-center text-body-secondary" style="border-top:var(--bs-border-width) var(--bs-border-style) var(--bs-border-color)!important;
+ ">© 2023 Ashkan Eskandari</p>
+  </footer>
+</div>
+<!---->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+<script>
+    const audio = document.getElementById("audio_track");
+    const audio_spinner = document.getElementById("speech_loader");
+    const audio_form = document.querySelector('form[name="get_pdf"]')
+    audio_form.addEventListener("submit", async evt => {
+        evt.preventDefault()
+        audio_spinner.classList.remove("d-none")
+        audio.classList.add("d-none")
+        await fetch("/upload-pdf", {
+            method: "post",
+            body: new FormData(evt.target)
+
+        }).then(response => response.json()).then(data => {
+            const audioUrl = "/audio/audio_path.mp3";
+            document.getElementById("oggSource").src = audioUrl;
+            document.getElementById("mp3Source").src = audioUrl;
+            audio.load();
+            audio_spinner.classList.add("d-none")
+            audio.classList.remove("d-none")
+            audio.play();
+        })
+
+    })
+    // const audio = document.getElementById("audio_track")
+
+    // audio_form.addEventListener("submit",async evt => {
+    //     evt.preventDefault()
+    //     await fetch("/upload-pdf", {
+    //         method: "post",
+    //         body: new FormData(evt.target)
+    //
+    //     }).then(response => response.json()).then(data => {
+    //         document.getElementById("oggSource").src = data.audio_url;
+    //         document.getElementById("mp3Source").src = data.audio_url;
+    //         console.log(data.audio_url)
+    //
+    //         audio.load()
+    //         audio.play()
+    //     })
+    // })
+
+
+</script>
+</body>
+</html>
