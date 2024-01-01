@@ -1,10 +1,10 @@
-import numpy as np
+# import numpy as np
 import pandas as pd
 import plotly.express as px
-import matplotlib.pyplot as plt
-import seaborn as sns
+# import matplotlib.pyplot as plt
+# import seaborn as sns
 from iso3166 import countries
-from datetime import datetime, timedelta
+# from datetime import datetime, timedelta
 
 pd.options.display.float_format = '{:,.2f}'.format
 df_data = pd.read_csv('mission_launches.csv')
