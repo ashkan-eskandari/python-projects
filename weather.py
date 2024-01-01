@@ -1,5 +1,5 @@
 import os
-import requests
+from requests import post,get
 
 GEO_API_KEY = os.environ.get("GEO_API_KEY")
 WEATHER_API_KEY = os.environ.get("WEATHER_API_KEY")
@@ -14,7 +14,7 @@ class Weather:
         self.weather_url = "https://api.openweathermap.org/data/2.5/weather?"
 
     def get_weather(self):
-        geo_response = requests.get(url=self.geo_url, params=self.geo_params)
+        geo_response = get(url=self.geo_url, params=self.geo_params)
         data = geo_response.json()
         self.lon = data["longitude"]
         self.lat = data["latitude"]
@@ -23,7 +23,7 @@ class Weather:
             "lon": self.lon,
             "appid": WEATHER_API_KEY
         }
-        weather_response = requests.get(url=self.weather_url, params=weather_params)
+        weather_response = get(url=self.weather_url, params=weather_params)
         data = weather_response.json()
         temperature = data["main"]["temp"]
         condition = data["weather"][0]["main"]

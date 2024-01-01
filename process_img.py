@@ -1,5 +1,5 @@
 from PIL import Image
-import numpy as np
+from numpy import asarray ,uint8,argsort
 from sklearn.cluster import KMeans
 from collections import Counter
 from matplotlib import colors
@@ -14,7 +14,7 @@ class ExtractColors:
         # Open the image file
         img = Image.open(image_path)
         img = img.convert("RGB")
-        ar = np.asarray(img)
+        ar = asarray(img)
         # Reshape the image array to have a shape of (num_pixels, 3)
         reshaped_image = ar.reshape(-1, 3)
         # Perform K-means clustering
@@ -23,7 +23,7 @@ class ExtractColors:
         # Get the cluster centers (representative colors)
         cluster_centers = kmeans.cluster_centers_
         # Convert the cluster centers to uint8 and reshape
-        dominant_colors = cluster_centers.astype(np.uint8).reshape(-1, 3)
+        dominant_colors = cluster_centers.astype(uint8).reshape(-1, 3)
         # Convert the dominant colors to hex format
         colors_hex = [colors.to_hex(color / 255.0) for color in dominant_colors]
         # Count occurrences of each cluster
@@ -31,9 +31,9 @@ class ExtractColors:
         total_occurrences = sum(cluster_counts.values())
         color_counter = list(cluster_counts.values())
         color_percent = [round(int(occ) * 100 / total_occurrences) for occ in color_counter]
-        color_percent = np.asarray(color_percent)
-        colors_hex = np.asarray(colors_hex)
-        sort_indices = np.argsort(-color_percent)
+        color_percent = asarray(color_percent)
+        colors_hex = asarray(colors_hex)
+        sort_indices = argsort(-color_percent)
         self.colors_hex = colors_hex[sort_indices]
         self.color_percent = color_percent[sort_indices]
         return self.colors_hex, self.color_percent
