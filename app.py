@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, jsonify, send_from_directory,
 from flask_bootstrap import Bootstrap
 from flask_uploads import UploadSet, IMAGES, configure_uploads, DOCUMENTS
 from morse import Morse
-from process_img import ExtractColors
+# from process_img import ExtractColors
 from threading import Thread
 import subprocess
 from weather import Weather
@@ -13,17 +13,17 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
 app.config["SECRET_KEY"] = "123123123123dasdasd"
-app.config['UPLOADED_PHOTOS_DEST'] = "UPLOADS/photos"
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+# app.config['UPLOADED_PHOTOS_DEST'] = "UPLOADS/photos"
+# ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 app.config['UPLOADED_DOCUMENTS_DEST'] = 'UPLOADS/documents'
 app.config['AUDIO_FOLDER'] = 'UPLOADS/audio'
-photos = UploadSet('photos', IMAGES)
+# photos = UploadSet('photos', IMAGES)
 documents = UploadSet('documents', DOCUMENTS)
-configure_uploads(app, photos)
+# configure_uploads(app, photos)
 configure_uploads(app, documents)
 morse = Morse()
-extract_colors = ExtractColors()
+# extract_colors = ExtractColors()
 weather_instance = Weather()
 
 
@@ -55,9 +55,9 @@ def get_morse():
         return jsonify({"morse_output": morse_output})
 
 
-@app.route('/UPLOADS/photos/<filename>')
-def get_photo(filename):
-    return send_from_directory(app.config['UPLOADED_PHOTOS_DEST'], filename)
+# @app.route('/UPLOADS/photos/<filename>')
+# def get_photo(filename):
+#     return send_from_directory(app.config['UPLOADED_PHOTOS_DEST'], filename)
 
 
 @app.route('/UPLOADS/documents/<filename>')
@@ -65,27 +65,27 @@ def get_pdf(filename):
     return send_from_directory(app.config['UPLOADED_DOCUMENTS_DEST'], filename)
 
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+# def allowed_file(filename):
+#     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+#
 
-
-@app.route('/upload', methods=['POST'])
-def upload():
-    if request.method == "POST":
-        empty("photos")
-        file = request.files['photo']
-        extract_colors.reset_extract_colors()
-        if file and allowed_file(file.filename):
-            filename = photos.save(file)
-            file_url = url_for("get_photo", filename=filename)
-            img_path = f"UPLOADS/photos/{filename}"
-            # dominant_colors, counts = extract_dominant_colors(img_path)
-            dominant_colors, counts = extract_colors.extract_dominant_colors(image_path=img_path)
-            dominant_colors = dominant_colors.tolist()
-            counts = counts.tolist()
-            return jsonify({"colors": dominant_colors, "counts": counts, "file_url": file_url})
-        else:
-            return jsonify({"error": "Invalid file type. Please choose a valid image file."})
+# @app.route('/upload', methods=['POST'])
+# def upload():
+#     if request.method == "POST":
+#         empty("photos")
+#         file = request.files['photo']
+#         extract_colors.reset_extract_colors()
+#         if file and allowed_file(file.filename):
+#             filename = photos.save(file)
+#             file_url = url_for("get_photo", filename=filename)
+#             img_path = f"UPLOADS/photos/{filename}"
+#             # dominant_colors, counts = extract_dominant_colors(img_path)
+#             dominant_colors, counts = extract_colors.extract_dominant_colors(image_path=img_path)
+#             dominant_colors = dominant_colors.tolist()
+#             counts = counts.tolist()
+#             return jsonify({"colors": dominant_colors, "counts": counts, "file_url": file_url})
+#         else:
+#             return jsonify({"error": "Invalid file type. Please choose a valid image file."})
 
 
 @app.route('/open_tkinter_window', methods=['POST'])
