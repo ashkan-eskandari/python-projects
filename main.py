@@ -4,8 +4,8 @@ from flask_bootstrap import Bootstrap
 from flask_uploads import UploadSet, IMAGES, configure_uploads, DOCUMENTS
 from morse import Morse
 # from process_img import ExtractColors
-from threading import Thread
-import subprocess
+# from threading import Thread
+# import subprocess
 from weather import Weather
 from text_to_speech import get_audio
 from werkzeug.utils import secure_filename
@@ -88,21 +88,21 @@ def get_pdf(filename):
 #             return jsonify({"error": "Invalid file type. Please choose a valid image file."})
 
 
-@app.route('/open_tkinter_window', methods=['POST'])
-def open_tkinter_window():
-    thread = Thread(target=open_tkinter_app)
-    thread.start()
-    return jsonify({"message": "Tkinter window opened successfully"})
+# @app.route('/open_tkinter_window', methods=['POST'])
+# def open_tkinter_window():
+#     thread = Thread(target=open_tkinter_app)
+#     thread.start()
+#     return jsonify({"message": "Tkinter window opened successfully"})
 
 
-def open_tkinter_app():
-    subprocess.run(['python', 'dangerousWriting.py'])
+# def open_tkinter_app():
+#     subprocess.run(['python', 'dangerousWriting.py'])
 
 
-@app.route('/open_breakout_window', methods=['POST'])
-def open_breakout_window():
-    subprocess.Popen(['python', 'breakout/breakout.py'])
-    return jsonify({"message": "Breakout window opened successfully"})
+# @app.route('/open_breakout_window', methods=['POST'])
+# def open_breakout_window():
+#     subprocess.Popen(['python', 'breakout/breakout.py'])
+#     return jsonify({"message": "Breakout window opened successfully"})
 
 
 @app.route('/weather', methods=["POST"])
@@ -139,4 +139,3 @@ def serve_audio(filename):
 if __name__ == "__main__":
     app.run()
 
-# host="0.0.0.0",port=5000
