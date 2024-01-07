@@ -18,12 +18,13 @@ app.config["SECRET_KEY"] = "123123123123dasdasd"
 
 app.config['UPLOADED_DOCUMENTS_DEST'] = 'UPLOADS/documents'
 app.config['AUDIO_FOLDER'] = 'UPLOADS/audio'
-# photos = UploadSet('photos', IMAGES)
 documents = UploadSet('documents', DOCUMENTS)
+# photos = UploadSet('photos', IMAGES)
 # configure_uploads(app, photos)
+# extract_colors = ExtractColors()
+
 configure_uploads(app, documents)
 morse = Morse()
-# extract_colors = ExtractColors()
 weather_instance = Weather()
 
 
@@ -43,7 +44,6 @@ def empty(path):
 @app.route('/', methods=["POST", "GET"])
 def homepage():
     return render_template("index.html")
-    # return app.send_static_file("index.html")
 
 
 @app.route('/morse', methods=["POST"])

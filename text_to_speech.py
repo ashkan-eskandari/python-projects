@@ -1,6 +1,6 @@
 import os
 from pypdf import PdfReader
-from requests import post,get
+import requests
 
 text_to_speech_URL = "http://api.ispeech.org/api/rest?action=convert"
 SPEECH_API_KEY = os.environ.get("SPEECH_API_KEY")
@@ -12,7 +12,7 @@ def get_audio(pdf):
     page = reader.pages[0]
     text = page.extract_text()
 
-    response = post(
+    response = requests.post(
         'https://api.v6.unrealspeech.com/speech',
         headers={
             'Authorization': f'Bearer {SPEECH_API_KEY}'
@@ -25,10 +25,9 @@ def get_audio(pdf):
             "Speed": 0.1
         }
     )
-
     data = response.json()
     output_uri = data["OutputUri"]
-    audio_response = get(output_uri)
+    audio_response = requests.get(output_uri)
     audio_content = audio_response.content
 
     audio_file_path = "UPLOADS/audio/audio_path.mp3"
